@@ -1,0 +1,28 @@
+<section class='section'>
+  <div class='card has-table'>
+    <div class='card-content'>
+            <p>
+        <strong><%= Answer.human_attribute_name(:correct) %>:</strong>
+              <%= @answer.correct %>
+            </p>
+
+            <p>
+        <strong><%= Answer.human_attribute_name(:name) %>:</strong>
+              <%= @answer.name %>
+            </p>
+
+            <p>
+        <strong><%= Answer.human_attribute_name(:question) %>:</strong>
+              <%= @answer.question_id %>
+            </p>
+
+      
+      <hr>
+
+      <div class='buttons'>
+        <%= link_to I18n.t('.edit'), edit_answer_path(@answer), class: 'button is-primary' %>
+        <%= link_to I18n.t('.back'), answers_path, class: 'button is-light' %>
+      </div>
+    </div>
+  </div>
+</section>

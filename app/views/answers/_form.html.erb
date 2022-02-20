@@ -1,0 +1,63 @@
+<%= form_with(model: answer) do |form| %>
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%= form.label :correct, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <% input_class = @answer.errors[:correct].present? ? 'input is-danger' : 'input' %>
+          <%= form.check_box :correct, class: input_class %>
+          <%= content_tag :p, @answer.errors[:correct].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%= form.label :name, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <% input_class = @answer.errors[:name].present? ? 'input is-danger' : 'input' %>
+          <%= form.text_field :name, class: input_class %>
+          <%= content_tag :p, @answer.errors[:name].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%= form.label :question_id, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <% input_class = @answer.errors[:question_id].present? ? 'input is-danger' : 'input' %>
+          <%= form.text_field :question_id, class: input_class %>
+          <%= content_tag :p, @answer.errors[:question_id].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal"></div>
+    <div class="field-body">
+      <div class="field">
+        <div class="field-body">
+          <div class="field is-grouped">
+            <div class="control">
+              <%= form.submit class: 'button is-success' %>
+              <%= link_to I18n.t('.back'), answers_path, class: 'button is-light' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
