@@ -26,7 +26,8 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :user_answers, dependent: :destroy
 
-  enum answer_type: { single_choice: 0, multiple_choice: 1, long_answer: 2 }
+  enum answer_type: { single_choice: 0 }
+  #enum answer_type: { single_choice: 0, multiple_choice: 1, long_answer: 2 }
   enum question_source_type: { gdrive_video: 0, gdrive_image: 1 }
 
   validates :answer_type, :name, :question_source_type, :question_source_value, :questionnaire_id, presence: true
