@@ -3,23 +3,21 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'box' }) do |f| %>
+          <%= form_for(resource, data: { trubo: false }, as: resource_name, url: session_path(resource_name), html: { class: 'box' }) do |f| %>
             <div class="field">
-              <label for="" class="label">Email</label>
-              <div class="control has-icons-left">
-                <input type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-envelope"></i>
-                </span>
+              <div class="control has-icons-left is-clearfix">
+                <% input_class = @user.errors[:email].present? ? 'input is-danger' : 'input' %>
+                <%= f.email_field :email, autocomplete: "email", placeholder: 'E-mail', class: 'input' %>
+                <%= content_tag :p, @user.errors[:email].to_sentence, class: "help is-danger" %>
+                <span class="icon is-left"><i class="mdi mdi-email mdi-24px"></i></span>
               </div>
             </div>
             <div class="field">
-              <label for="" class="label">Password</label>
-              <div class="control has-icons-left">
-                <input type="password" placeholder="*******" class="input" required>
-                <span class="icon is-small is-left">
-                  <i class="fa fa-lock"></i>
-                </span>
+              <div class="control has-icons-left is-clearfix">
+                <% input_class = @user.errors[:password].present? ? 'input is-danger' : 'input' %>
+                <%= f.password_field :password, autocomplete: "password", placeholder: 'Password', class: 'input' %>
+                <%= content_tag :p, @user.errors[:password].to_sentence, class: "help is-danger" %>
+                <span class="icon is-left"><i class="mdi mdi-email mdi-24px"></i></span>
               </div>
             </div>
             <% if devise_mapping.rememberable? %>

@@ -1,0 +1,83 @@
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label"><%= f.label :name %></label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="field">
+        <div class="control has-icons-left is-clearfix">
+          <% input_class = @user.errors[:first_name].present? ? 'input is-danger' : 'input' %>
+          <%= f.text_field :first_name, autocomplete: "first_name", placeholder: :first_name, class: 'input' %>
+          <%= content_tag :p, @user.errors[:first_name].to_sentence, class: "help is-danger" %>
+          <span class="icon is-left"><i class="mdi mdi-account mdi-24px"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field">
+        <div class="control has-icons-left is-clearfix">
+          <% input_class = @user.errors[:last_name].present? ? 'input is-danger' : 'input' %>
+          <%= f.text_field :last_name, autocomplete: "first_name", placeholder: :last_name, class: 'input' %>
+          <%= content_tag :p, @user.errors[:last_name].to_sentence, class: "help is-danger" %>
+          <span class="icon is-left"><i class="mdi mdi-account mdi-24px"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label">E-mail</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control has-icons-left is-clearfix">
+        <% input_class = @user.errors[:email].present? ? 'input is-danger' : 'input' %>
+        <%= f.email_field :email, autocomplete: "email", placeholder: 'E-mail', class: 'input' %>
+        <%= content_tag :p, @user.errors[:email].to_sentence, class: "help is-danger" %>
+        <span class="icon is-left"><i class="mdi mdi-email mdi-24px"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<% unless action_name == 'edit' %>
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label"><%= f.label :password %></label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control has-icons-left">
+        <% input_class = @user.errors[:password].present? ? 'input is-danger' : 'input' %>
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: '******', class: 'input' %>
+        <%= content_tag :p, @user.errors[:password].to_sentence, class: "help is-danger" %>
+        <span class="icon is-small is-left">
+          <i class="fa fa-lock"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label"><%= f.label :password_confirmation %></label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <div class="control has-icons-left">
+        <% input_class = @user.errors[:password_confirmation].present? ? 'input is-danger' : 'input' %>
+        <%= f.password_field :password_confirmation, autocomplete: "current-password", placeholder: '******', class: 'input' %>
+        <%= content_tag :p, @user.errors[:password_confirmation].to_sentence, class: "help is-danger" %>
+        <span class="icon is-small is-left">
+          <i class="fa fa-lock"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

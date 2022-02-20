@@ -1,0 +1,73 @@
+<nav class="navbar is-success" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <p class="navbar-item">
+      <a href="/">
+        <img src="https://yt3.ggpht.com/ytc/AKedOLTEaqGETUqPh2ZJ7PJJ2J0WDARgFPKn93CX9JVC=s900-c-k-c0x00ffffff-no-rj">
+      </a>
+    </p>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div><!-- /navbar-brand -->
+
+  <div id="navbarBasicExample" class="navbar-menu">
+
+    <div class="navbar-start">
+      <a class="navbar-item" href='/'>
+        <span class='is-family-monospace is-capitalized is-size-5 has-text-weight-bold	'>Referees</span>
+      </a>
+    </div><!-- /navbar-start -->
+
+    <div class="navbar-end">
+      <% if user_signed_in? && false %>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class='is-family-monospace is-capitalized is-size-5	'>Administracja</span>
+          </a>
+          <div class="navbar-dropdown is-boxed is-right">
+            <hr class="navbar-divider">
+          </div>
+        </div>
+      <% end %>
+      <% if (!user_signed_in?) %>
+        <div class="navbar-item">
+          <div class="buttons">
+            <%= link_to I18n.t(:sign_up),
+                new_user_registration_path,
+                class: "button is-warning"
+            %>
+            <%= link_to I18n.t(:sign_in),
+                new_user_session_path,
+                class: "button is-link"
+            %>
+          </div>
+        </div>
+      <% end %>
+      <% if user_signed_in? %>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class='navbar-menu'>
+            <a class="navbar-link">
+              <figure class="image is-50x50">
+              </figure>
+            </a>
+          </div>
+          <div class="navbar-dropdown is-boxed is-right">
+            <%= link_to I18n.t(:settings),
+                edit_user_registration_path(current_user.id),
+                class: "navbar-item"
+            %>
+            <hr class="navbar-divider">
+            <%= link_to I18n.t(:sign_out),
+                destroy_user_session_path,
+                method: :delete,
+                class: "navbar-item"
+            %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</nav>
