@@ -1,6 +1,6 @@
 <section class='section'>
-  <div class='card has-table'>
-    <div class='card-content'>
+  <div class="columns">
+    <div class="column">
             <p>
         <strong><%= Question.human_attribute_name(:name) %>:</strong>
               <%= @question.name %>
@@ -36,13 +36,37 @@
               <%= @question.questionnaire_id %>
             </p>
 
-      
+
       <hr>
 
       <div class='buttons'>
         <%= link_to I18n.t('.edit'), edit_questionnaire_question_path(@questionnaire, @question), class: 'button is-primary' %>
         <%= link_to I18n.t('.back'), questionnaire_questions_path, class: 'button is-light' %>
       </div>
+    </div>
+    <div class="column">
+      <div class='content'>
+        <ul>
+          <% @question.answers.each do |answer| %>
+            <% if answer.correct %>
+              <li>
+                <%= answer.name %>
+                <span class="icon has-text-success">
+                  <i class="fas fa-check-square"></i>
+                </span>
+              </li>
+            <% else %>
+              <li>
+                <%= answer.name %>
+                <span class="icon has-text-danger">
+                  <i class="fas fa-check-square"></i>
+                </span>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <%= render 'answers/form', answer: @question.answers.new, show_back: false %>
     </div>
   </div>
 </section>

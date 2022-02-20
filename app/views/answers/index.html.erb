@@ -34,13 +34,13 @@
                   <td><%= answer.question_id %></td>
                   <td>
                   <div class='buttons is-right'>
-                    <%= link_to answer, class: 'button is-small is-primary' do %>
+                    <%= link_to [@questionnaire, @question, answer], class: 'button is-small is-primary' do %>
                       <span class="icon is-small"><i class="fas fa-newspaper"></i></span>
                     <% end %>
-                    <%= link_to edit_answer_path(answer), class: 'button is-small is-info' do %>
+                    <%= link_to edit_questionnaire_question_answer_path(questionnaire_id: @questionnaire.id, question_id: @question.id, id: answer.id), class: 'button is-small is-info' do %>
                       <span class="icon is-small"><i class="fas fa-pen-to-square"></i></span>
                     <% end %>
-                    <%= link_to answer, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'button is-danger is-small' do %>
+                    <%= link_to [@questionnaire, @question, answer], method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'button is-danger is-small' do %>
                       <span class="icon is-small"><i class="fas fa-trash-can"></i></span>
                     <% end %>
                   </div>
