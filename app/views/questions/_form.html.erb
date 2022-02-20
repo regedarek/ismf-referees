@@ -1,0 +1,114 @@
+<%= form_with(model: [@questionnaire, question]) do |form| %>
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%= form.label :name, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <% input_class = @question.errors[:name].present? ? 'input is-danger' : 'input' %>
+          <%= form.text_field :name, class: input_class %>
+          <%= content_tag :p, @question.errors[:name].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%= form.label :position, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <% input_class = @question.errors[:position].present? ? 'input is-danger' : 'input' %>
+          <%= form.number_field :position, class: input_class %>
+          <%= content_tag :p, @question.errors[:position].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%= form.label :question_source_type, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <% input_class = @question.errors[:question_source_type].present? ? 'input is-danger' : 'input' %>
+          <%= form.select :question_source_type,
+            options_for_select(Question.question_source_type_select, selected: form.object.question_source_type),
+            class: input_class
+          %>
+          <%= content_tag :p, @question.errors[:question_source_type].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%= form.label :required, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <% input_class = @question.errors[:required].present? ? 'check is-danger' : 'check' %>
+          <%= form.check_box :required, class: input_class %>
+          <%= content_tag :p, @question.errors[:required].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%= form.label :question_source_value, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <% input_class = @question.errors[:question_source_value].present? ? 'input is-danger' : 'input' %>
+          <%= form.text_field :question_source_value, class: input_class %>
+          <%= content_tag :p, @question.errors[:question_source_value].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%= form.label :answer_type, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <% input_class = @question.errors[:answer_type].present? ? 'input is-danger' : 'input' %>
+          <%= form.select :answer_type,
+            options_for_select(Question.answer_type_select, selected: form.object.answer_type),
+            class: input_class
+          %>
+          <%= content_tag :p, @question.errors[:answer_type].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal"></div>
+    <div class="field-body">
+      <div class="field">
+        <div class="field-body">
+          <div class="field is-grouped">
+            <div class="control">
+              <%= form.submit class: 'button is-success' %>
+              <%= link_to I18n.t('.back'), questionnaire_questions_path, class: 'button is-light' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

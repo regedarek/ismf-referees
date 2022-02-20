@@ -4,14 +4,14 @@
 #
 #  id         :uuid             not null, primary key
 #  name       :string           not null
-#  state      :integer          default(0), not null
+#  state      :integer          default("draft"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 class Questionnaire < ApplicationRecord
   enum state: [:draft, :open, :closed]
 
-  #has_many :questions, dependent: :destroy
+  has_many :questions, dependent: :destroy
 
   validates :name, presence: true
 

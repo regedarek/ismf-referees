@@ -39,6 +39,14 @@ en:
   edit: "Edit"
   activerecord:
     attributes:
+      question:
+        question_source_types:
+          gdrive_video: Gdrive Video
+          gdrive_image: Gdrive Image
+        answer_types:
+          single_choice: Single Choice
+          multiple_choice: Multiple Choice
+          long_answer: Text
       questionnaire:
         states:
           draft: Draft

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  resources :questionnaires
   devise_for :users
+
+  resources :questionnaires do
+    resources :questions
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
