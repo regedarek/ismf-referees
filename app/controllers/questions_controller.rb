@@ -7,6 +7,14 @@ class QuestionsController < ApplicationController
     @questions = @questionnaire.questions
   end
 
+  def random
+    if params[:question_id]
+      @question = Question.find(params[:question_id])
+    else
+      @question = Question.all.sample
+    end
+  end
+
   # GET /questions/1 or /questions/1.json
   def show
   end

@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  resources :user_answers, only: [:update]
+
+  resources :questions, only: [] do
+    get :random, on: :collection
+    resources :user_answers, only: [:create]
+  end
+
   resources :questionnaires do
     resources :questions do
       resources :answers

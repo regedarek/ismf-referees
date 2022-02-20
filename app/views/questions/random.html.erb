@@ -1,0 +1,59 @@
+<section class='section'>
+  <div class="columns">
+    <div class="column">
+      <div class='box'>
+        <% if @question.gdrive_video? %>
+          <iframe src="<%= @question.question_source_value %>" width="640" height="480" allow="autoplay"></iframe>
+        <% end %>
+        <% if @question.gdrive_image? %>
+          <iframe src="<%= @question.question_source_value %>" width="640" height="480" allow="autoplay"></iframe>
+        <% end %>
+      </div>
+    </div>
+    <div class="column">
+      <div class='box'>
+        <h2><b><%= @question.name %></b></h2>
+        <% case @question.answer_type %>
+        <% when 'single_choice' %>
+          <% if UserAnswer.exists?(question_id: @question.id, user_id: current_user.id) %>
+            This is your answer:
+            <% answer = UserAnswer.find_by(question_id: @question.id, user_id: current_user.id).answer %>
+            <br>
+            <% if answer.correct %>
+              <%= answer.name %>
+              <span class="icon has-text-success">
+                <i class="fas fa-check-square"></i>
+              </span>
+            <% else %>
+              <%= answer.name %>
+              <span class="icon has-text-danger">
+                <i class="fas fa-check-square"></i>
+              </span>
+              <hr>
+              Correct answer is:
+              <br>
+              <%= @question.answers.find_by(correct: true).name %>
+              <span class="icon has-text-success">
+                <i class="fas fa-check-square"></i>
+              </span>
+            <% end %>
+          <% else %>
+            <%= form_with(model: [@question, @question.user_answers.new]) do |form| %>
+              <%= form.hidden_field :user_id, value: current_user.id %>
+              <%= form.collection_radio_buttons(:answer_id, @question.answers, :id, :name, {}, {onchange: 'this.form.submit()'}) do |b| %>
+                <%= b.label(:"data-value" => b.value) { b.radio_button + " " + b.text } %>
+                <br>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% when 'long_answer' %>
+        <% when 'multiple_choice' %>
+        <% end %>
+      </div>
+      <div class='box'>
+        <%= link_to 'Next random question', random_questions_path, class: 'button is-info is-fullwidth' %>
+      </div>
+    </div>
+
+  </div>
+</section>

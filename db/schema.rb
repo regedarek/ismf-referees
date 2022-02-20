@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_20_205431) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_20_221151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_20_205431) do
     t.index ["questionnaire_id"], name: "index_questions_on_questionnaire_id"
   end
 
+  create_table "user_answers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "content"
+    t.uuid "answer_id"
+    t.uuid "question_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_user_answers_on_answer_id"
+    t.index ["question_id"], name: "index_user_answers_on_question_id"
+    t.index ["user_id"], name: "index_user_answers_on_user_id"
+  end
+
+  create_table "user_choices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "answer_id", null: false
+    t.uuid "user_answer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_user_choices_on_answer_id"
+    t.index ["user_answer_id"], name: "index_user_choices_on_user_answer_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -61,4 +82,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_20_205431) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "questions", "questionnaires"
+  add_foreign_key "user_answers", "questions"
+  add_foreign_key "user_answers", "users"
+  add_foreign_key "user_choices", "answers"
+  add_foreign_key "user_choices", "user_answers"
 end
