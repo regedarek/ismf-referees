@@ -35,3 +35,12 @@ en:
   sign_up: "Sign Up"
   sign_out: "Sign Out"
   settings: "Settings"
+  back: "Go back"
+  edit: "Edit"
+  activerecord:
+    attributes:
+      questionnaire:
+        states:
+          draft: Draft
+          open: Open
+          closed: Closed

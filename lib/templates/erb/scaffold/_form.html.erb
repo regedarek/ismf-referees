@@ -1,0 +1,46 @@
+<%%= form_with(model: <%= model_resource_name %>) do |form| %>
+<% attributes.each do |attribute| -%>
+<% if attribute.password_digest? -%>
+    <%%= form.label :password %>
+    <%%= form.password_field :password %>
+
+    <%%= form.label :password_confirmation %>
+    <%%= form.password_field :password_confirmation %>
+<% elsif attribute.attachments? -%>
+    <%%= form.label :<%= attribute.column_name %> %>
+    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
+<% else -%>
+  <div class='field is-horizontal'>
+    <div class='field-label is-normal'>
+      <%%= form.label :<%= attribute.column_name %>, class: 'label' %>
+    </div>
+    <div class='field-body'>
+      <div class='field'>
+        <div class='control'>
+          <%% input_class = @<%= model_resource_name %>.errors[:<%= attribute.column_name %>].present? ? 'input is-danger' : 'input' %>
+          <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: input_class %>
+          <%%= content_tag :p, @<%= model_resource_name %>.errors[:<%= attribute.column_name %>].to_sentence, class: "help is-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end -%>
+
+<% end -%>
+  <hr>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal"></div>
+    <div class="field-body">
+      <div class="field">
+        <div class="field-body">
+          <div class="field is-grouped">
+            <div class="control">
+              <%%= form.submit class: 'button is-success' %>
+              <%%= link_to I18n.t('.back'), <%= index_helper %>_path, class: 'button is-light' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%% end %>
