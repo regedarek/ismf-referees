@@ -16,26 +16,36 @@
         <% case @question.answer_type %>
         <% when 'single_choice' %>
           <% if UserAnswer.exists?(question_id: @question.id, user_id: current_user.id) %>
-            This is your answer:
+            Your answer:
             <% answer = UserAnswer.find_by(question_id: @question.id, user_id: current_user.id).answer %>
             <br>
             <% if answer.correct %>
-              <%= answer.name %>
               <span class="icon has-text-success">
                 <i class="fas fa-check-square"></i>
               </span>
-            <% else %>
               <%= answer.name %>
+            <% else %>
               <span class="icon has-text-danger">
                 <i class="fas fa-check-square"></i>
               </span>
+              <%= answer.name %>
               <hr>
-              Correct answer is:
+              Correct answer:
               <br>
-              <%= @question.answers.find_by(correct: true).name %>
-              <span class="icon has-text-success">
-                <i class="fas fa-check-square"></i>
-              </span>
+              <% @question.answers.each do |answer| %>
+                <% if answer.correct %>
+                  <span class="icon has-text-success">
+                    <i class="fas fa-check-square"></i>
+                  </span>
+                  <%= answer.name %>
+                <% else %>
+                  <span class="icon has-text-danger">
+                    <i class="fas fa-check-square"></i>
+                  </span>
+                  <%= answer.name %>
+                <% end %>
+                <br>
+              <% end %>
             <% end %>
           <% else %>
             <%= form_with(model: [@question, @question.user_answers.new]) do |form| %>

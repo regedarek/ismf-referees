@@ -9,7 +9,8 @@
 #  updated_at :datetime         not null
 #
 class Questionnaire < ApplicationRecord
-  enum state: [:draft, :open, :closed]
+  enum state: { open: 1 }
+  #enum state: [:draft, :open, :closed]
 
   has_many :questions, dependent: :destroy
 

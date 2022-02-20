@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions or /questions.json
   def index
-    @questions = @questionnaire.questions
+    @questions = @questionnaire.questions.order(position: :asc)
   end
 
   def random

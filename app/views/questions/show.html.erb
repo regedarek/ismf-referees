@@ -6,19 +6,16 @@
               <%= @question.name %>
             </p>
 
-            <p>
-        <strong><%= Question.human_attribute_name(:position) %>:</strong>
-              <%= @question.position %>
-            </p>
+            <% if @question.position %>
+              <p>
+                <strong><%= Question.human_attribute_name(:position) %>:</strong>
+                <%= @question.position %>
+              </p>
+            <% end %>
 
             <p>
         <strong><%= Question.human_attribute_name(:question_source_type) %>:</strong>
               <%= @question.question_source_type %>
-            </p>
-
-            <p>
-        <strong><%= Question.human_attribute_name(:required) %>:</strong>
-              <%= @question.required %>
             </p>
 
             <p>
@@ -33,7 +30,7 @@
 
             <p>
         <strong><%= Question.human_attribute_name(:questionnaire) %>:</strong>
-              <%= @question.questionnaire_id %>
+              <%= link_to @question.questionnaire.name, @question.questionnaire %>
             </p>
 
 
