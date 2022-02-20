@@ -53,8 +53,6 @@ gem "bootsnap", require: false
 
 gem 'high_voltage', '~> 3.1'
 gem 'devise'
-gem 'devise-bulma-views', github: 'thecodechef/devise-bulma-views'
-
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
