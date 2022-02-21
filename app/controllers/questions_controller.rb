@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_questionnaire, only: %i[ index new show create edit update destroy ]
   before_action :set_question, only: %i[ show edit update destroy ]
+  skip_before_action :authenticate_user!, only: :random
 
   # GET /questions or /questions.json
   def index

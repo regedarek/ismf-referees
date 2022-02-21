@@ -11,59 +11,72 @@
       </div>
     </div>
     <div class="column">
-      <div class='box'>
-        <h2><b><%= @question.name %></b></h2>
-        <% case @question.answer_type %>
-        <% when 'single_choice' %>
-          <% if UserAnswer.exists?(question_id: @question.id, user_id: current_user.id) %>
-            Your answer:
-            <% answer = UserAnswer.find_by(question_id: @question.id, user_id: current_user.id).answer %>
-            <br>
-            <% if answer.correct %>
-              <span class="icon has-text-success">
-                <i class="fas fa-check-square"></i>
-              </span>
-              <%= answer.name %>
-            <% else %>
-              <span class="icon has-text-danger">
-                <i class="fas fa-check-square"></i>
-              </span>
-              <%= answer.name %>
-              <hr>
-              Correct answer:
+      <% if user_signed_in? %>
+        <div class='box'>
+          <h2><b><%= @question.name %></b></h2>
+          <% case @question.answer_type %>
+          <% when 'single_choice' %>
+            <% if UserAnswer.exists?(question_id: @question.id, user_id: current_user.id) %>
+              Your answer:
+              <% answer = UserAnswer.find_by(question_id: @question.id, user_id: current_user.id).answer %>
               <br>
-              <% @question.answers.each do |answer| %>
-                <% if answer.correct %>
-                  <span class="icon has-text-success">
-                    <i class="fas fa-check-square"></i>
-                  </span>
-                  <%= answer.name %>
-                <% else %>
-                  <span class="icon has-text-danger">
-                    <i class="fas fa-check-square"></i>
-                  </span>
-                  <%= answer.name %>
+              <% if answer.correct %>
+                <span class="icon has-text-success">
+                  <i class="fas fa-check-square"></i>
+                </span>
+                <%= answer.name %>
+              <% else %>
+                <span class="icon has-text-danger">
+                  <i class="fas fa-check-square"></i>
+                </span>
+                <%= answer.name %>
+                <hr>
+                Correct answer:
+                <br>
+                <% @question.answers.each do |answer| %>
+                  <% if answer.correct %>
+                    <span class="icon has-text-success">
+                      <i class="fas fa-check-square"></i>
+                    </span>
+                    <%= answer.name %>
+                  <% else %>
+                    <span class="icon has-text-danger">
+                      <i class="fas fa-check-square"></i>
+                    </span>
+                    <%= answer.name %>
+                  <% end %>
+                  <br>
                 <% end %>
-                <br>
+              <% end %>
+            <% else %>
+              <%= form_with(model: [@question, @question.user_answers.new]) do |form| %>
+                <%= form.hidden_field :user_id, value: current_user.id %>
+                <%= form.collection_radio_buttons(:answer_id, @question.answers, :id, :name, {}, {onchange: 'this.form.submit()'}) do |b| %>
+                  <%= b.label(:"data-value" => b.value) { b.radio_button + " " + b.text } %>
+                  <br>
+                <% end %>
               <% end %>
             <% end %>
-          <% else %>
-            <%= form_with(model: [@question, @question.user_answers.new]) do |form| %>
-              <%= form.hidden_field :user_id, value: current_user.id %>
-              <%= form.collection_radio_buttons(:answer_id, @question.answers, :id, :name, {}, {onchange: 'this.form.submit()'}) do |b| %>
-                <%= b.label(:"data-value" => b.value) { b.radio_button + " " + b.text } %>
-                <br>
-              <% end %>
-            <% end %>
+          <% when 'long_answer' %>
+          <% when 'multiple_choice' %>
           <% end %>
-        <% when 'long_answer' %>
-        <% when 'multiple_choice' %>
-        <% end %>
-      </div>
+        </div>
+      <% else %>
+        <div class='box'>
+          <h2>If you want to know the answer sign in!</h2>
+          <br>
+          <% @question.answers.each do |answer| %>
+            <span class="icon has-text-info">
+              <i class="fas fa-question-circle"></i>
+            </span>
+            <%= answer.name %>
+            <br>
+          <% end %>
+        </div>
+      <% end %>
       <div class='box'>
         <%= link_to 'Next random question', random_questions_path, class: 'button is-info is-fullwidth' %>
       </div>
     </div>
-
   </div>
 </section>
