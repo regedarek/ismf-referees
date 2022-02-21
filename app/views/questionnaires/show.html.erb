@@ -29,7 +29,7 @@
     <div class='column'>
       <div class='card has-table'>
         <div class='card-content'>
-          <%= render 'questions/small_table', questions: @questionnaire.questions.order(position: :asc) %>
+          <%= render 'questions/small_table', questions: @questionnaire.questions.order(position: :asc), show_back: false %>
         </div>
       </div>
     </div>
