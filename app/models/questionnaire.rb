@@ -4,7 +4,7 @@
 #
 #  id         :uuid             not null, primary key
 #  name       :string           not null
-#  state      :integer          default("draft"), not null
+#  state      :integer          default(NULL), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
