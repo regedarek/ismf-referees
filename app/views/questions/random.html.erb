@@ -3,10 +3,10 @@
     <div class="column">
       <div class='box'>
         <% if @question.gdrive_video? %>
-          <iframe src="<%= @question.question_source_value %>" width="640" height="480" allow="autoplay"></iframe>
+          <iframe src="<%= @question.question_source_value %>" allow="autoplay"></iframe>
         <% end %>
         <% if @question.gdrive_image? %>
-          <iframe src="<%= @question.question_source_value %>" width="640" height="480" allow="autoplay"></iframe>
+          <iframe src="<%= @question.question_source_value %>" allow="autoplay"></iframe>
         <% end %>
       </div>
     </div>
